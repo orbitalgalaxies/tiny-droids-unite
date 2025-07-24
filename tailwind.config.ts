@@ -61,7 +61,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				nanobot: {
+					medical: 'hsl(var(--nanobot-medical))',
+					environmental: 'hsl(var(--nanobot-environmental))',
+					manufacturing: 'hsl(var(--nanobot-manufacturing))',
+					monitoring: 'hsl(var(--nanobot-monitoring))',
+					surgical: 'hsl(var(--nanobot-surgical))',
+					swarm: 'hsl(var(--nanobot-swarm))'
+				},
+				success: 'hsl(var(--success))',
+				warning: 'hsl(var(--warning))',
+				info: 'hsl(var(--info))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
