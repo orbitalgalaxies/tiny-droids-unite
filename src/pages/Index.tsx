@@ -13,7 +13,8 @@ import {
   Eye,
   Zap,
   Users,
-  Settings
+  Settings,
+  Radio
 } from 'lucide-react';
 
 import { NanobotsControl } from '@/components/nanobots/NanobotsControl';
@@ -23,6 +24,7 @@ import { EnvironmentalNanobots } from '@/components/nanobots/EnvironmentalNanobo
 import { ManufacturingNanobots } from '@/components/nanobots/ManufacturingNanobots';
 import { HealthMonitoring } from '@/components/nanobots/HealthMonitoring';
 import { MicrosurgeryNanobots } from '@/components/nanobots/MicrosurgeryNanobots';
+import { CommunicationHub } from '@/components/nanobots/CommunicationHub';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -63,10 +65,14 @@ const Index = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-6">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-7 mb-6">
+          <TabsList className="grid w-full grid-cols-8 mb-6">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <Settings className="h-4 w-4" />
               Overview
+            </TabsTrigger>
+            <TabsTrigger value="communication" className="flex items-center gap-2">
+              <Radio className="h-4 w-4" />
+              Communication
             </TabsTrigger>
             <TabsTrigger value="medical" className="flex items-center gap-2">
               <Heart className="h-4 w-4" />
@@ -96,6 +102,10 @@ const Index = () => {
 
           <TabsContent value="overview">
             <NanobotsControl />
+          </TabsContent>
+
+          <TabsContent value="communication">
+            <CommunicationHub />
           </TabsContent>
 
           <TabsContent value="medical">
