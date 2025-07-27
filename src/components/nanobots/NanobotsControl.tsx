@@ -132,23 +132,23 @@ export function NanobotsControl() {
     }
   };
   const activeSwarm = swarms.find(s => s.id === selectedSwarm);
-  return <div className="space-y-6 bg-gray-300">
+  return <div className="space-y-6 bg-gradient-to-br from-orange-50 to-red-50 p-6 rounded-lg shadow-lg border border-orange-200/50">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
             Nanobots Command Center
           </h1>
-          <p className="text-muted-foreground">Control and monitor nanobot swarms for various applications</p>
+          <p className="text-orange-700/70">Control and monitor nanobot swarms for various applications</p>
         </div>
-        <div className="flex items-center gap-2">
-          <Users className="h-4 w-4 text-nanobot-swarm" />
-          <span className="text-sm font-medium">
+        <div className="flex items-center gap-2 bg-orange-100/80 px-3 py-2 rounded-lg border border-orange-200/60">
+          <Users className="h-4 w-4 text-orange-600" />
+          <span className="text-sm font-medium text-orange-800">
             {swarms.reduce((acc, s) => acc + s.active, 0).toLocaleString()} Active Nanobots
           </span>
         </div>
       </div>
 
-      <Tabs value={selectedSwarm} onValueChange={setSelectedSwarm} className="bg-gray-50">
+      <Tabs value={selectedSwarm} onValueChange={setSelectedSwarm} className="bg-white/60 backdrop-blur-sm rounded-lg border border-orange-100/80 shadow-sm">
         <TabsList className="grid w-full grid-cols-5">
           {swarms.map(swarm => {
           const config = NANOBOT_TYPES[swarm.type];

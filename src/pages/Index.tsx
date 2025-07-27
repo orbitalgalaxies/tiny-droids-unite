@@ -32,28 +32,28 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b">
+      <div className="border-b bg-gradient-to-r from-blue-50 to-indigo-50 shadow-lg border-blue-200/50">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-gradient-to-r from-primary to-accent">
-                <Bot className="h-8 w-8 text-primary-foreground" />
+              <div className="p-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 shadow-md">
+                <Bot className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
                   NanoSwarm Control System
                 </h1>
-                <p className="text-muted-foreground">
+                <p className="text-blue-700/70">
                   Advanced nanobots for medical, environmental, and manufacturing applications
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <Badge variant="outline" className="bg-success/10 text-success border-success">
+              <Badge variant="outline" className="bg-emerald-50 text-emerald-700 border-emerald-300">
                 <Activity className="h-3 w-3 mr-1" />
                 System Online
               </Badge>
-              <Badge variant="outline">
+              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-300">
                 <Users className="h-3 w-3 mr-1" />
                 127,500 Active Nanobots
               </Badge>
