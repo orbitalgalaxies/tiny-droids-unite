@@ -4,22 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Heart, 
-  Shield, 
-  Recycle, 
-  Cpu, 
-  Activity, 
-  Scissors,
-  Play,
-  Pause,
-  Square,
-  Users,
-  Zap,
-  Target
-} from 'lucide-react';
+import { Heart, Shield, Recycle, Cpu, Activity, Scissors, Play, Pause, Square, Users, Zap, Target } from 'lucide-react';
 import { toast } from 'sonner';
-
 interface NanobotSwarm {
   id: string;
   type: 'medical' | 'environmental' | 'manufacturing' | 'monitoring' | 'surgical';
@@ -29,7 +15,6 @@ interface NanobotSwarm {
   target: string;
   status: 'idle' | 'active' | 'deploying' | 'returning';
 }
-
 const NANOBOT_TYPES = {
   medical: {
     icon: Heart,
@@ -39,7 +24,7 @@ const NANOBOT_TYPES = {
   },
   environmental: {
     icon: Recycle,
-    color: 'nanobot-environmental', 
+    color: 'nanobot-environmental',
     name: 'Environmental Cleanup',
     description: 'Pollution removal and ecosystem restoration'
   },
@@ -62,58 +47,49 @@ const NANOBOT_TYPES = {
     description: 'Cellular-level surgical procedures'
   }
 };
-
 export function NanobotsControl() {
-  const [swarms, setSwarms] = useState<NanobotSwarm[]>([
-    {
-      id: 'med-001',
-      type: 'medical',
-      count: 10000,
-      active: 8500,
-      efficiency: 92,
-      target: 'Tumor Site Alpha',
-      status: 'active'
-    },
-    {
-      id: 'env-001', 
-      type: 'environmental',
-      count: 50000,
-      active: 47000,
-      efficiency: 88,
-      target: 'Ocean Sector 7',
-      status: 'active'
-    },
-    {
-      id: 'man-001',
-      type: 'manufacturing',
-      count: 25000,
-      active: 0,
-      efficiency: 0,
-      target: 'Substrate Layer',
-      status: 'idle'
-    },
-    {
-      id: 'mon-001',
-      type: 'monitoring',
-      count: 5000,
-      active: 5000,
-      efficiency: 99,
-      target: 'Cardiovascular System',
-      status: 'active'
-    },
-    {
-      id: 'surg-001',
-      type: 'surgical',
-      count: 1000,
-      active: 0,
-      efficiency: 0,
-      target: 'Neural Junction',
-      status: 'idle'
-    }
-  ]);
-
+  const [swarms, setSwarms] = useState<NanobotSwarm[]>([{
+    id: 'med-001',
+    type: 'medical',
+    count: 10000,
+    active: 8500,
+    efficiency: 92,
+    target: 'Tumor Site Alpha',
+    status: 'active'
+  }, {
+    id: 'env-001',
+    type: 'environmental',
+    count: 50000,
+    active: 47000,
+    efficiency: 88,
+    target: 'Ocean Sector 7',
+    status: 'active'
+  }, {
+    id: 'man-001',
+    type: 'manufacturing',
+    count: 25000,
+    active: 0,
+    efficiency: 0,
+    target: 'Substrate Layer',
+    status: 'idle'
+  }, {
+    id: 'mon-001',
+    type: 'monitoring',
+    count: 5000,
+    active: 5000,
+    efficiency: 99,
+    target: 'Cardiovascular System',
+    status: 'active'
+  }, {
+    id: 'surg-001',
+    type: 'surgical',
+    count: 1000,
+    active: 0,
+    efficiency: 0,
+    target: 'Neural Junction',
+    status: 'idle'
+  }]);
   const [selectedSwarm, setSelectedSwarm] = useState<string>('med-001');
-
   const handleSwarmAction = (swarmId: string, action: 'deploy' | 'pause' | 'recall') => {
     setSwarms(prev => prev.map(swarm => {
       if (swarm.id === swarmId) {
@@ -127,11 +103,14 @@ export function NanobotsControl() {
             };
           case 'pause':
             toast.info(`Pausing ${NANOBOT_TYPES[swarm.type].name} operations`);
-            return { ...swarm, status: 'idle' as const };
+            return {
+              ...swarm,
+              status: 'idle' as const
+            };
           case 'recall':
             toast.warning(`Recalling ${NANOBOT_TYPES[swarm.type].name} swarm`);
-            return { 
-              ...swarm, 
+            return {
+              ...swarm,
               status: 'returning' as const,
               active: Math.floor(swarm.active * 0.5)
             };
@@ -140,20 +119,20 @@ export function NanobotsControl() {
       return swarm;
     }));
   };
-
   const getStatusColor = (status: NanobotSwarm['status']) => {
     switch (status) {
-      case 'active': return 'bg-success';
-      case 'deploying': return 'bg-warning';
-      case 'returning': return 'bg-info';
-      default: return 'bg-muted';
+      case 'active':
+        return 'bg-success';
+      case 'deploying':
+        return 'bg-warning';
+      case 'returning':
+        return 'bg-info';
+      default:
+        return 'bg-muted';
     }
   };
-
   const activeSwarm = swarms.find(s => s.id === selectedSwarm);
-
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6 bg-gray-300">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -169,26 +148,22 @@ export function NanobotsControl() {
         </div>
       </div>
 
-      <Tabs value={selectedSwarm} onValueChange={setSelectedSwarm}>
+      <Tabs value={selectedSwarm} onValueChange={setSelectedSwarm} className="bg-gray-50">
         <TabsList className="grid w-full grid-cols-5">
           {swarms.map(swarm => {
-            const config = NANOBOT_TYPES[swarm.type];
-            const Icon = config.icon;
-            return (
-              <TabsTrigger key={swarm.id} value={swarm.id} className="flex items-center gap-2">
+          const config = NANOBOT_TYPES[swarm.type];
+          const Icon = config.icon;
+          return <TabsTrigger key={swarm.id} value={swarm.id} className="flex items-center gap-2">
                 <Icon className="h-4 w-4" />
                 {config.name.split(' ')[0]}
-              </TabsTrigger>
-            );
-          })}
+              </TabsTrigger>;
+        })}
         </TabsList>
 
         {swarms.map(swarm => {
-          const config = NANOBOT_TYPES[swarm.type];
-          const Icon = config.icon;
-          
-          return (
-            <TabsContent key={swarm.id} value={swarm.id} className="space-y-4">
+        const config = NANOBOT_TYPES[swarm.type];
+        const Icon = config.icon;
+        return <TabsContent key={swarm.id} value={swarm.id} className="space-y-4">
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
@@ -201,10 +176,7 @@ export function NanobotsControl() {
                         <CardDescription>{config.description}</CardDescription>
                       </div>
                     </div>
-                    <Badge 
-                      variant="outline" 
-                      className={`${getStatusColor(swarm.status)} text-background`}
-                    >
+                    <Badge variant="outline" className={`${getStatusColor(swarm.status)} text-background`}>
                       {swarm.status.toUpperCase()}
                     </Badge>
                   </div>
@@ -246,13 +218,10 @@ export function NanobotsControl() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium">Deployment Progress</span>
                       <span className="text-sm text-muted-foreground">
-                        {Math.round((swarm.active / swarm.count) * 100)}%
+                        {Math.round(swarm.active / swarm.count * 100)}%
                       </span>
                     </div>
-                    <Progress 
-                      value={(swarm.active / swarm.count) * 100} 
-                      className="h-2"
-                    />
+                    <Progress value={swarm.active / swarm.count * 100} className="h-2" />
                   </div>
 
                   <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
@@ -263,39 +232,23 @@ export function NanobotsControl() {
                   </div>
 
                   <div className="flex gap-2">
-                    <Button 
-                      onClick={() => handleSwarmAction(swarm.id, 'deploy')}
-                      disabled={swarm.status === 'active'}
-                      className="flex items-center gap-2"
-                    >
+                    <Button onClick={() => handleSwarmAction(swarm.id, 'deploy')} disabled={swarm.status === 'active'} className="flex items-center gap-2">
                       <Play className="h-4 w-4" />
                       Deploy
                     </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => handleSwarmAction(swarm.id, 'pause')}
-                      disabled={swarm.status === 'idle'}
-                      className="flex items-center gap-2"
-                    >
+                    <Button variant="outline" onClick={() => handleSwarmAction(swarm.id, 'pause')} disabled={swarm.status === 'idle'} className="flex items-center gap-2">
                       <Pause className="h-4 w-4" />
                       Pause
                     </Button>
-                    <Button 
-                      variant="destructive"
-                      onClick={() => handleSwarmAction(swarm.id, 'recall')}
-                      disabled={swarm.status === 'idle'}
-                      className="flex items-center gap-2"
-                    >
+                    <Button variant="destructive" onClick={() => handleSwarmAction(swarm.id, 'recall')} disabled={swarm.status === 'idle'} className="flex items-center gap-2">
                       <Square className="h-4 w-4" />
                       Recall
                     </Button>
                   </div>
                 </CardContent>
               </Card>
-            </TabsContent>
-          );
-        })}
+            </TabsContent>;
+      })}
       </Tabs>
-    </div>
-  );
+    </div>;
 }
